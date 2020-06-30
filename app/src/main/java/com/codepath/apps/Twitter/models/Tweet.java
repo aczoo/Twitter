@@ -46,7 +46,14 @@ public class Tweet {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        if (relativeDate.charAt(1) == ' '){
+            return ""+relativeDate.charAt(0)+relativeDate.charAt(2);
 
+        }
+        else if(relativeDate.charAt(2) == ' '){
+            return ""+relativeDate.substring(0,2) +relativeDate.charAt(3);
+
+        }
         return relativeDate;
     }
 

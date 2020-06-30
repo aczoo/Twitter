@@ -53,11 +53,11 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            profile = itemView.findViewById(R.id.profile);
-            tstamp = itemView.findViewById(R.id.timestamp);
-            name = itemView.findViewById(R.id.name);
-            username = itemView.findViewById(R.id.username);
-            tweet = itemView.findViewById(R.id.tweet);
+            profile = itemView.findViewById(R.id.ivprofile);
+            tstamp = itemView.findViewById(R.id.tvtimestamp);
+            name = itemView.findViewById(R.id.tvname);
+            username = itemView.findViewById(R.id.tvusername);
+            tweet = itemView.findViewById(R.id.tvtweet);
         }
 
         public void bind(Tweet t) {

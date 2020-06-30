@@ -34,7 +34,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.compose){
+        if (item.getItemId() == R.id.etcompose){
             Toast.makeText(this, "compose",Toast.LENGTH_SHORT).show();
             Intent i = new Intent(this, ComposeActivity.class);
             startActivityForResult(i,REQUEST_CODE);
@@ -49,6 +49,7 @@ public class TimelineActivity extends AppCompatActivity {
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
             tweets.add(0,tweet);
             adapter.notifyItemInserted(0);
+            rvt.smoothScrollToPosition(0);
 
         }
         super.onActivityResult(requestCode, resultCode, data);

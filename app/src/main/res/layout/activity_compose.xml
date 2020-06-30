@@ -7,9 +7,10 @@
     tools:context="com.codepath.apps.Twitter.ComposeActivity">
 
     <EditText
-        android:id="@+id/compose"
+        android:id="@+id/etcompose"
         android:layout_width="335dp"
         android:layout_height="381dp"
+        android:backgroundTint="@color/blue"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Today is my birthday!"
@@ -23,13 +24,23 @@
 
     <Button
         android:id="@+id/btntweet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_height="33dp"
         android:layout_marginStart="284dp"
         android:layout_marginTop="16dp"
         android:background="@color/blue"
         android:text="Tweet"
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/compose" />
+        app:layout_constraintTop_toBottomOf="@+id/etcompose" />
+
+    <TextView
+        android:id="@+id/tvchar"
+        android:layout_width="47dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="280"
+        app:layout_constraintEnd_toStartOf="@+id/btntweet"
+        app:layout_constraintTop_toBottomOf="@+id/etcompose" />
 </androidx.constraintlayout.widget.ConstraintLayout>
