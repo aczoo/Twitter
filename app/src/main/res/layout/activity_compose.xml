@@ -8,19 +8,21 @@
 
     <EditText
         android:id="@+id/etcompose"
-        android:layout_width="335dp"
-        android:layout_height="381dp"
+        android:layout_width="328dp"
+        android:layout_height="210dp"
         android:backgroundTint="@color/blue"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Today is my birthday!"
         android:inputType="textMultiLine"
+        android:maxLength="280"
         android:minLines="5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.251" />
+        app:layout_constraintVertical_bias="0.122" />
 
     <Button
         android:id="@+id/btntweet"
