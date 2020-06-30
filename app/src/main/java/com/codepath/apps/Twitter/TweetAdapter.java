@@ -15,6 +15,8 @@ import com.codepath.apps.Twitter.models.Tweet;
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> {
     Context context;
     List<Tweet> tweets;
@@ -39,7 +41,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return 0;
+        return tweets.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -60,8 +62,10 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
         public void bind(Tweet t) {
             tweet.setText(t.body);
-            username.setText(t.u.username);
-            Glide.with(context).load(t.u.profileUrl).into(profile);
+            username.setText("@"+t.u.username);
+            name.setText(t.u.name);
+            tstamp.setText(t.createdAt);
+            Glide.with(context).load(t.u.profileUrl).transform(new RoundedCornersTransformation(10, 10)).into(profile);
         }
     }
 }
