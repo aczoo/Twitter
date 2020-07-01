@@ -17,6 +17,7 @@ public class Tweet {
     public String body;
     public String createdAt;
     public String mediaURL;
+    public long id;
     public User u;
 
     public Tweet(){
@@ -25,6 +26,7 @@ public class Tweet {
         Tweet tweet = new Tweet();
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = getRelativeTimeAgo(jsonObject.getString("created_at"));
+        tweet.id = jsonObject.getLong("id");
         tweet.u = User.fromJson(jsonObject.getJSONObject("user"));
         if (jsonObject.getJSONObject("entities").has("media")&& jsonObject.getJSONObject("entities").getJSONArray("media").getJSONObject(0).has("media_url_https"))
           {
