@@ -10,6 +10,7 @@ import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -64,12 +65,17 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.etcompose){
+        /*if (item.getItemId() == R.id.etcompose){
             Intent i = new Intent(this, ComposeActivity.class);
             startActivityForResult(i,REQUEST_CODE);
             return true;
         }
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);*/
+        FragmentManager fm = getSupportFragmentManager();
+        composeFragment compose = composeFragment.newInstance("does not Know what this does");
+        compose.show(fm, "composeFragment");
+        return true;
+
     }
 
     @Override
