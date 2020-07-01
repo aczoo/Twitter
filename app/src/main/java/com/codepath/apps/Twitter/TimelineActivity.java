@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,7 +65,6 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.etcompose){
-            Toast.makeText(this, "compose",Toast.LENGTH_SHORT).show();
             Intent i = new Intent(this, ComposeActivity.class);
             startActivityForResult(i,REQUEST_CODE);
             return true;

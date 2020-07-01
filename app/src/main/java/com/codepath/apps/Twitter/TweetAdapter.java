@@ -56,14 +56,17 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView profile;
+        ImageView media;
         TextView tstamp;
         TextView name;
         TextView username;
         TextView tweet;
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             profile = itemView.findViewById(R.id.ivprofile);
+            media = itemView.findViewById(R.id.ivMedia);
             tstamp = itemView.findViewById(R.id.tvtimestamp);
             name = itemView.findViewById(R.id.tvname);
             username = itemView.findViewById(R.id.tvusername);
@@ -76,6 +79,14 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             name.setText(t.u.name);
             tstamp.setText(t.createdAt);
             Glide.with(context).load(t.u.profileUrl).transform(new RoundedCornersTransformation(10, 10)).into(profile);
+            if (t.mediaURL!= null){
+                Glide.with(context).load(t.mediaURL).transform(new RoundedCornersTransformation(10, 10)).into(media);
+            }
+            else{
+                media.getLayoutParams().width=0;
+                media.getLayoutParams().height=0;
+            }
+
         }
     }
 }
