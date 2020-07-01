@@ -1,6 +1,7 @@
 package com.codepath.apps.Twitter.models;
 
 import android.text.format.DateUtils;
+import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,11 +35,13 @@ public class Tweet {
         }
         return tweet;
     }
-    public static List<Tweet> fromJsonArray(JSONArray jsonArray) throws JSONException{
+    public static List<Tweet> fromJsonArray(JSONArray jsonArray, ProgressBar pb) throws JSONException{
         List<Tweet> tweets = new ArrayList<>();
         for(int i=0; i <jsonArray.length();i++){
+            pb.setProgress(i*4);
             tweets.add(fromJson(jsonArray.getJSONObject(i)));
         }
+        pb.setVisibility(ProgressBar.INVISIBLE);
         return tweets;
     }
     public static String getRelativeTimeAgo(String rawJsonDate) {

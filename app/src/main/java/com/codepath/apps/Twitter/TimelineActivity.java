@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,7 @@ public class TimelineActivity extends AppCompatActivity {
     TwitterClient client;
     TweetAdapter adapter;
     RecyclerView rvt;
+    ProgressBar pb;
     List<Tweet> tweets;
     EndlessRecyclerViewScrollListener scrollListener;
     private final int REQUEST_CODE=30;
@@ -57,6 +59,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         client = TwitterApp.getRestClient(this);
         rvt = findViewById(R.id.rv_tweets);
+        pb = findViewById(R.id.progressBar);
         tweets= new ArrayList<>();
         adapter=new TweetAdapter(this, tweets);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -80,7 +83,7 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.i(TAG, "onSuccess for loading more data: "+ json.toString());
                 JSONArray jsonArray = json.jsonArray;
                 try {
-                    List<Tweet> tweets =Tweet.fromJsonArray(jsonArray);
+                    List<Tweet> tweets =Tweet.fromJsonArray(jsonArray,pb);
                     adapter.addAll(tweets);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -136,7 +139,7 @@ public class TimelineActivity extends AppCompatActivity {
                 adapter.clear();
                 JSONArray jsonArray = json.jsonArray;
                 try {
-                    tweets.addAll(Tweet.fromJsonArray(jsonArray));
+                    tweets.addAll(Tweet.fromJsonArray(jsonArray, pb));
                     Log.d(TAG, "tweets size : "+tweets.size());
                     adapter.notifyDataSetChanged();
                     Log.d(TAG, "gets JSON");
@@ -157,13 +160,14 @@ public class TimelineActivity extends AppCompatActivity {
 
 
     private void populateHomeTimeline() {
+        pb.setVisibility(ProgressBar.VISIBLE);
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 Log.i(TAG, "onSuccess");
                 JSONArray jsonArray = json.jsonArray;
                 try {
-                    tweets.addAll(Tweet.fromJsonArray(jsonArray));
+                    tweets.addAll(Tweet.fromJsonArray(jsonArray, pb));
                     Log.d(TAG, "tweets size : "+tweets.size());
                     adapter.notifyDataSetChanged();
                     Log.d(TAG, "gets JSON");

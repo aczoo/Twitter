@@ -48,6 +48,8 @@ public class composeFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getDialog().setCanceledOnTouchOutside(true);
+
         return inflater.inflate(R.layout.fragment_compose, container);
     }
 
