@@ -45,7 +45,7 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	// Inflate the menu; this adds items to the action bar if it is present.
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.login, menu);
+		getMenuInflater().inflate(R.menu.menu_login, menu);
 		return true;
 	}
 
@@ -53,7 +53,7 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	// i.e Display application "homepage"
 	@Override
 	public void onLoginSuccess() {
-		Log.i("login","login success");
+		Log.i("menu_login","menu_login success");
 		Intent i = new Intent(this, TimelineActivity.class);
 		startActivity(i);
 	}
@@ -67,7 +67,7 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 
 	// Click handler method for the button used to start OAuth flow
 	// Uses the client to initiate OAuth authorization
-	// This should be tied to a button used to login
+	// This should be tied to a button used to menu_login
 	public void loginToRest(View view) {
 		getClient().connect();
 	}

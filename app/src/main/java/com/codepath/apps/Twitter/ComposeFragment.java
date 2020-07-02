@@ -27,18 +27,18 @@ import okhttp3.Headers;
 
 import static android.app.Activity.RESULT_OK;
 
-public class composeFragment extends DialogFragment {
+public class ComposeFragment extends DialogFragment {
     EditText compose;
     TextView countchar;
     Button post;
     TwitterClient client;
 
-    public composeFragment() {
+    public ComposeFragment() {
     }
 
 
-    public static composeFragment newInstance(String title) {
-        composeFragment frag = new composeFragment();
+    public static ComposeFragment newInstance(String title) {
+        ComposeFragment frag = new ComposeFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
         frag.setArguments(args);

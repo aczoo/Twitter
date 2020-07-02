@@ -2,5 +2,7 @@
 <resources>
     <color name="blue">#68A0FC</color>
     <color name="status">#5673DF</color>
+    <color name = "like">#CA1756</color>
+    <color name="outline">#DD081937</color>
 
 </resources>

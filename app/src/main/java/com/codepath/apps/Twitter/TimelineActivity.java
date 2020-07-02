@@ -42,6 +42,7 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -50,12 +51,19 @@ public class TimelineActivity extends AppCompatActivity {
         });
         swipeContainer.setColorSchemeResources(R.color.blue);
 
+
+
         if (android.os.Build.VERSION.SDK_INT >= 21){
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(this.getResources().getColor(R.color.status));
         }
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
 
         client = TwitterApp.getRestClient(this);
         rvt = findViewById(R.id.rv_tweets);
@@ -108,7 +116,7 @@ public class TimelineActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);*/
         FragmentManager fm = getSupportFragmentManager();
-        composeFragment compose = composeFragment.newInstance("does not Know what this does");
+        ComposeFragment compose = ComposeFragment.newInstance("does not Know what this does");
         compose.show(fm, "composeFragment");
         return true;
 

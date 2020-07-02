@@ -11,24 +11,32 @@ import org.parceler.Parcel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 @Parcel
 public class Tweet {
     public String body;
     public String createdAt;
+    public String timestamp;
     public String mediaURL;
     public long id;
+    public boolean favorited;
+    public int favoriteCount;
+    public int retweetCount;
     public User u;
 
     public Tweet(){
     }
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
-        tweet.body = jsonObject.getString("text");
-        tweet.createdAt = getRelativeTimeAgo(jsonObject.getString("created_at"));
+        tweet.body = jsonObject.getString("full_text");
+        getRelativeTimeAgo(tweet, jsonObject.getString("created_at"));
         tweet.id = jsonObject.getLong("id");
         tweet.u = User.fromJson(jsonObject.getJSONObject("user"));
+        tweet.favorited=jsonObject.getBoolean("favorited");
+        tweet.favoriteCount= jsonObject.getInt("favorite_count");
+        tweet.retweetCount = jsonObject.getInt("retweet_count");
         if (jsonObject.getJSONObject("entities").has("media")&& jsonObject.getJSONObject("entities").getJSONArray("media").getJSONObject(0).has("media_url_https"))
           {
             tweet.mediaURL = jsonObject.getJSONObject("entities").getJSONArray("media").getJSONObject(0).getString("media_url_https");
@@ -44,27 +52,33 @@ public class Tweet {
         pb.setVisibility(ProgressBar.INVISIBLE);
         return tweets;
     }
-    public static String getRelativeTimeAgo(String rawJsonDate) {
-        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
-        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
+    public static void getRelativeTimeAgo(Tweet t,String rawJsonDate) {
+        String format = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+        String detailedformat ="h:mm a d MMM yy";
+
+        SimpleDateFormat sf = new SimpleDateFormat(format, Locale.ENGLISH);
+        SimpleDateFormat sf2 = new SimpleDateFormat(detailedformat, Locale.ENGLISH);
         sf.setLenient(true);
         String relativeDate = "";
         try {
-            long dateMillis = sf.parse(rawJsonDate).getTime();
-            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
+            Date dateMillis = sf.parse(rawJsonDate);
+            t.createdAt=sf2.format(dateMillis);
+            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis.getTime(),
                     System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString();
         } catch (ParseException e) {
             e.printStackTrace();
         }
         if (relativeDate.charAt(1) == ' '){
-            return ""+relativeDate.charAt(0)+relativeDate.charAt(2);
+            t.timestamp=""+relativeDate.charAt(0)+relativeDate.charAt(2);
 
         }
         else if(relativeDate.charAt(2) == ' '){
-            return ""+relativeDate.substring(0,2) +relativeDate.charAt(3);
+            t.timestamp=""+relativeDate.substring(0,2) +relativeDate.charAt(3);
 
         }
-        return relativeDate;
+        else{
+            t.timestamp= relativeDate;
+        }
     }
 
 }
