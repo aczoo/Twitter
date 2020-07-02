@@ -1,6 +1,9 @@
 package com.codepath.apps.Twitter;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,6 +15,7 @@ import android.widget.ProgressBar;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -27,6 +31,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Headers;
+
+import static com.codepath.apps.Twitter.models.Tweet.fromJson;
+import static com.codepath.apps.Twitter.models.Tweet.fromJsonArray;
 
 public class TimelineActivity extends AppCompatActivity {
     TwitterClient client;
@@ -64,6 +71,8 @@ public class TimelineActivity extends AppCompatActivity {
         getSupportActionBar().setLogo(R.mipmap.ic_launcher);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(updateReceiver, new IntentFilter("update"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(addReceiver, new IntentFilter("add"));
 
         client = TwitterApp.getRestClient(this);
         rvt = findViewById(R.id.rv_tweets);
@@ -91,7 +100,7 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.i(TAG, "onSuccess for loading more data: "+ json.toString());
                 JSONArray jsonArray = json.jsonArray;
                 try {
-                    List<Tweet> tweets =Tweet.fromJsonArray(jsonArray,pb);
+                    List<Tweet> tweets = fromJsonArray(jsonArray,pb);
                     adapter.addAll(tweets);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -130,7 +139,6 @@ public class TimelineActivity extends AppCompatActivity {
             adapter.notifyItemInserted(0);
             rvt.smoothScrollToPosition(0);
 
-
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -148,7 +156,7 @@ public class TimelineActivity extends AppCompatActivity {
                 adapter.clear();
                 JSONArray jsonArray = json.jsonArray;
                 try {
-                    tweets.addAll(Tweet.fromJsonArray(jsonArray, pb));
+                    tweets.addAll(fromJsonArray(jsonArray, pb));
                     Log.d(TAG, "tweets size : "+tweets.size());
                     adapter.notifyDataSetChanged();
                     Log.d(TAG, "gets JSON");
@@ -176,7 +184,7 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.i(TAG, "onSuccess");
                 JSONArray jsonArray = json.jsonArray;
                 try {
-                    tweets.addAll(Tweet.fromJsonArray(jsonArray, pb));
+                    tweets.addAll(fromJsonArray(jsonArray, pb));
                     Log.d(TAG, "tweets size : "+tweets.size());
                     adapter.notifyDataSetChanged();
                     Log.d(TAG, "gets JSON");
@@ -192,4 +200,55 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
     }
+
+    public BroadcastReceiver updateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final int position = intent.getIntExtra("pos",0);
+            client.updateTweet(tweets.get(position).id, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Headers headers, JSON json) {
+                    Log.i(TAG, "onSuccess");
+                    try {
+                        tweets.set(position,fromJson(json.jsonObject));
+                        adapter.notifyItemChanged(position);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                    Log.i(TAG, "onFailure", throwable);
+                }
+            });
+
+        }
+    };
+    public BroadcastReceiver addReceiver= new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            client.myRetweet( new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Headers headers, JSON json) {
+                    Log.i(TAG, "onSuccess");
+                    try {
+                        tweets.add(0,fromJson(json.jsonObject));
+                        adapter.notifyItemChanged(0);
+                        rvt.smoothScrollToPosition(0);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                    Log.i(TAG, "onFailure", throwable);
+
+                }
+            });
+
+        }
+    };
 }

@@ -4,5 +4,7 @@
     <color name="status">#5673DF</color>
     <color name = "like">#CA1756</color>
     <color name="outline">#DD081937</color>
+    <color name="retweet">#33BA55</color>
+
 
 </resources>
