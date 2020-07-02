@@ -149,7 +149,6 @@ public class TimelineActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
     public void fetchTimelineAsync(int page) {
-
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
@@ -228,12 +227,12 @@ public class TimelineActivity extends AppCompatActivity {
     public BroadcastReceiver addReceiver= new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            client.myRetweet( new JsonHttpResponseHandler() {
+            client.myRetweet(new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Headers headers, JSON json) {
-                    Log.i(TAG, "onSuccess");
                     try {
-                        tweets.add(0,fromJson(json.jsonObject));
+                        Log.d("hi",json.toString());
+                        tweets.add(0,fromJsonArray(json.jsonArray, null).get(0));
                         adapter.notifyItemChanged(0);
                         rvt.smoothScrollToPosition(0);
 

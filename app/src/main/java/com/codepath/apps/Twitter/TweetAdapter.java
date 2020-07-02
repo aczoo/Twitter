@@ -95,7 +95,6 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         }
         public void onClick(View view) {
             int position = getAdapterPosition();
-
             if (position != RecyclerView.NO_POSITION) {
                 Tweet tweet = tweets.get(position);
                 Intent intent = new Intent(context, TweetDetails.class);

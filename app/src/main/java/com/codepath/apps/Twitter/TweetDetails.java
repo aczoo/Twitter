@@ -89,7 +89,6 @@ public class TweetDetails extends AppCompatActivity {
 
     public void retweet(final View view) {
         if (!retweeted) {
-
             client.retweet(t.id, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Headers headers, JSON json) {
@@ -97,8 +96,8 @@ public class TweetDetails extends AppCompatActivity {
                     Intent intent = new Intent("update");
                     intent.putExtra("pos", position);
                     LocalBroadcastManager.getInstance(view.getContext()).sendBroadcast(intent);
-                    intent = new Intent("add");
-                    LocalBroadcastManager.getInstance(view.getContext()).sendBroadcast(intent);
+                    Intent intent2 = new Intent("add");
+                    LocalBroadcastManager.getInstance(view.getContext()).sendBroadcast(intent2);
                 }
                 @Override
                 public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {

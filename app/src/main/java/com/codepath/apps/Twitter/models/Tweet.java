@@ -31,7 +31,10 @@ public class Tweet {
     }
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
-        tweet.body = jsonObject.getString("full_text");
+        if (jsonObject.has("full_text"))
+            tweet.body = jsonObject.getString("full_text");
+        else
+            tweet.body = jsonObject.getString("text");
         getRelativeTimeAgo(tweet, jsonObject.getString("created_at"));
         tweet.id = jsonObject.getLong("id");
         tweet.u = User.fromJson(jsonObject.getJSONObject("user"));
@@ -48,10 +51,12 @@ public class Tweet {
     public static List<Tweet> fromJsonArray(JSONArray jsonArray, ProgressBar pb) throws JSONException{
         List<Tweet> tweets = new ArrayList<>();
         for(int i=0; i <jsonArray.length();i++){
-            pb.setProgress(i*4);
+            if(pb!=null)
+                pb.setProgress(i*4);
             tweets.add(fromJson(jsonArray.getJSONObject(i)));
         }
-        pb.setVisibility(ProgressBar.INVISIBLE);
+        if (pb!=null)
+            pb.setVisibility(ProgressBar.INVISIBLE);
         return tweets;
     }
     public static void getRelativeTimeAgo(Tweet t,String rawJsonDate) {

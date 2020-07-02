@@ -94,11 +94,11 @@ public class TwitterClient extends OAuthBaseClient {
 		client.get(apiURL, params, handler);
 
 	}
-	public void myRetweet( JsonHttpResponseHandler handler){
-		String apiURL = getApiUrl("statuses/retweets_of_me.json");
+	public void myRetweet(JsonHttpResponseHandler handler){
+		String apiURL = getApiUrl("statuses/user_timeline.json");
 		RequestParams params = new RequestParams();
 		params.put("tweet_mode","extended");
-		params.put("count",1);
+		//params.put("count",5);
 		client.get(apiURL, params, handler);
 	}
 
