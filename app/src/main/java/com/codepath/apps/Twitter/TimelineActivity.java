@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -125,7 +127,7 @@ public class TimelineActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);*/
         FragmentManager fm = getSupportFragmentManager();
-        ComposeFragment compose = ComposeFragment.newInstance("does not Know what this does");
+        ComposeFragment compose = ComposeFragment.newInstance("");
         compose.show(fm, "composeFragment");
         return true;
 
@@ -250,4 +252,15 @@ public class TimelineActivity extends AppCompatActivity {
 
         }
     };
+
+
+    public void onReply(View view){
+        FragmentManager fm = getSupportFragmentManager();
+        String u= ((TextView)(view.findViewById(R.id.tvusername))).getText().toString();
+        ComposeFragment compose = ComposeFragment.newInstance(u);
+        Bundle bundle = new Bundle();
+        bundle.putString("username", String.valueOf(view.findViewById(R.id.tvusername)));
+        compose.setArguments(bundle);
+        compose.show(fm, "composeFragment");
+    }
 }

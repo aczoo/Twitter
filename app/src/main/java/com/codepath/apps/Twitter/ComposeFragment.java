@@ -37,10 +37,10 @@ public class ComposeFragment extends DialogFragment {
     }
 
 
-    public static ComposeFragment newInstance(String title) {
+    public static ComposeFragment newInstance(String username) {
         ComposeFragment frag = new ComposeFragment();
         Bundle args = new Bundle();
-        args.putString("title", title);
+        args.putString("username", username);
         frag.setArguments(args);
         return frag;
     }
@@ -57,6 +57,7 @@ public class ComposeFragment extends DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         compose = view.findViewById(R.id.etcompose);
+        compose.setText((String) savedInstanceState.get("username"));
         countchar = view.findViewById(R.id.tvchar);
         compose.addTextChangedListener(new TextWatcher() {
             @Override

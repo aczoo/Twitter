@@ -87,6 +87,7 @@ public class TweetDetails extends AppCompatActivity {
         }
     }
 
+
     public void retweet(final View view) {
         if (!retweeted) {
             client.retweet(t.id, new JsonHttpResponseHandler() {
