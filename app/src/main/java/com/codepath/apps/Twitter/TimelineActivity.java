@@ -130,6 +130,7 @@ public class TimelineActivity extends AppCompatActivity {
             adapter.notifyItemInserted(0);
             rvt.smoothScrollToPosition(0);
 
+
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
