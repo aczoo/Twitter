@@ -57,7 +57,7 @@ public class ComposeFragment extends DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         compose = view.findViewById(R.id.etcompose);
-        compose.setText((String) savedInstanceState.get("username"));
+        compose.setText(getArguments().getString("username"));
         countchar = view.findViewById(R.id.tvchar);
         compose.addTextChangedListener(new TextWatcher() {
             @Override
@@ -93,6 +93,7 @@ public class ComposeFragment extends DialogFragment {
                             Intent intent = new Intent();
                             intent.putExtra("tweet", Parcels.wrap(tweetcontent));
                             getActivity().setResult(RESULT_OK, intent);
+
                             getActivity().finish();
                         } catch (JSONException e) {
                             e.printStackTrace();

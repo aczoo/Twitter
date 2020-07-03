@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.bumptech.glide.Glide;
@@ -27,17 +28,8 @@ public class TweetDetails extends AppCompatActivity {
     boolean favorited;
     boolean retweeted;
     int position;
-    ImageView profile;
-    ImageView media;
-    ImageView heart;
-    ImageView ret;
-    TextView tstamp;
-    TextView name;
-    TextView username;
-    TextView tweet;
-    TextView likes;
-    TextView retweets;
-
+    ImageView profile, media, heart, ret, reply;
+    TextView tstamp, name, username, tweet, likes, retweets;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +47,7 @@ public class TweetDetails extends AppCompatActivity {
         media = findViewById(R.id.ivMedia);
         heart = findViewById(R.id.ivlike);
         ret = findViewById(R.id.ivretweet);
+        reply = findViewById(R.id.ivreply);
         tstamp = findViewById(R.id.tvtimestamp);
         name = findViewById(R.id.tvname);
         username = findViewById(R.id.tvusername);
@@ -66,7 +59,7 @@ public class TweetDetails extends AppCompatActivity {
         position = getIntent().getIntExtra("pos", 0);
         client = TwitterApp.getRestClient(this);
 
-        tweet.setText(t.body);
+        tweet.setText(t.fullbody);
         username.setText("@" + t.u.username);
         name.setText(t.u.name);
         tstamp.setText(t.createdAt);
@@ -85,6 +78,19 @@ public class TweetDetails extends AppCompatActivity {
             media.getLayoutParams().width = 0;
             media.getLayoutParams().height = 0;
         }
+        reply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getSupportFragmentManager();
+                ComposeFragment compose = ComposeFragment.newInstance("");
+                Bundle bundle = new Bundle();
+                bundle.putString("username", (String)username.getText());
+                compose.setArguments(bundle);
+                compose.show(fm, "composeFragment");
+
+
+            }
+        });
     }
 
 

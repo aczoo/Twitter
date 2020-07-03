@@ -101,6 +101,12 @@ public class TwitterClient extends OAuthBaseClient {
 		//params.put("count",5);
 		client.get(apiURL, params, handler);
 	}
+	public void deleteTweet(long id, JsonHttpResponseHandler handler){
+		String apiURL = getApiUrl("statuses/destroy/:" +id+".json");
+		RequestParams params = new RequestParams();
+		params.put("id",id);
+		client.get(apiURL, params, handler);
+	}
 
 
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint

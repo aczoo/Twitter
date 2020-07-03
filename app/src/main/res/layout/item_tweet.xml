@@ -3,7 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:longClickable="true">
+
+    <View
+        android:id="@+id/horizontalbar2"
+        android:layout_width="350dp"
+        android:layout_height="1dip"
+        android:layout_below="@id/ivlike"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:background="#90081937" />
+
+    <ImageView
+        android:id="@+id/ivretweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivMedia"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/ivlike"
+        android:clickable="true"
+        android:onClick="retweet"
+        app:srcCompat="@drawable/ic_vector_retweet_stroke" />
+
+    <ImageView
+        android:id="@+id/ivlike"
+        android:layout_width="28dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivMedia"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:clickable="true"
+        android:onClick="updateLike"
+        app:srcCompat="@drawable/ic_vector_heart_stroke" />
 
     <TextView
         android:id="@+id/tvtimestamp"
@@ -57,14 +91,14 @@
 
     <TextView
         android:id="@+id/tvusername"
-        android:layout_width="wrap_content"
+        android:layout_width="162dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/tvtweet"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="129dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="110dp"
         android:layout_marginBottom="2dp"
         android:layout_toEndOf="@+id/tvname"
         android:text="@bobbuild" />
@@ -76,8 +110,8 @@
         android:layout_below="@+id/tvtweet"
         android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginStart="91dp"
+        android:layout_marginTop="5dp"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <ImageView
@@ -85,11 +119,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivMedia"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="61dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/ivretweet"
         android:clickable="true"
-        android:onClick="onReply"
-        app:srcCompat="@drawable/ic_baseline_chat_bubble_outline_24" />
+        app:srcCompat="@drawable/ic_vector_reply" />
 
 </RelativeLayout>

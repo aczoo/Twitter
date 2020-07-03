@@ -16,15 +16,10 @@ import java.util.List;
 import java.util.Locale;
 @Parcel
 public class Tweet {
-    public String body;
-    public String createdAt;
-    public String timestamp;
-    public String mediaURL;
+    public String body, createdAt, timestamp, mediaURL, fullbody;
     public long id;
-    public boolean favorited;
-    public boolean retweeted;
-    public int favoriteCount;
-    public int retweetCount;
+    public boolean favorited, retweeted;
+    public int favoriteCount, retweetCount;
     public User u;
 
     public Tweet(){
@@ -35,6 +30,11 @@ public class Tweet {
             tweet.body = jsonObject.getString("full_text");
         else
             tweet.body = jsonObject.getString("text");
+        tweet.fullbody=tweet.body;
+        if (jsonObject.has("retweeted_status")){
+            int index= tweet.body.indexOf(':');
+            tweet.fullbody=tweet.body.substring(0,index)+jsonObject.getJSONObject("retweeted_status").getString("full_text");
+        }
         getRelativeTimeAgo(tweet, jsonObject.getString("created_at"));
         tweet.id = jsonObject.getLong("id");
         tweet.u = User.fromJson(jsonObject.getJSONObject("user"));

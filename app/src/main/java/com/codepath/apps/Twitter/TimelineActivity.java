@@ -8,11 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -76,6 +74,7 @@ public class TimelineActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(updateReceiver, new IntentFilter("update"));
         LocalBroadcastManager.getInstance(this).registerReceiver(addReceiver, new IntentFilter("add"));
 
+
         client = TwitterApp.getRestClient(this);
         rvt = findViewById(R.id.rv_tweets);
         pb = findViewById(R.id.progressBar);
@@ -128,6 +127,9 @@ public class TimelineActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);*/
         FragmentManager fm = getSupportFragmentManager();
         ComposeFragment compose = ComposeFragment.newInstance("");
+        Bundle bundle = new Bundle();
+        bundle.putString("username", "");
+        compose.setArguments(bundle);
         compose.show(fm, "composeFragment");
         return true;
 
@@ -233,7 +235,6 @@ public class TimelineActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(int statusCode, Headers headers, JSON json) {
                     try {
-                        Log.d("hi",json.toString());
                         tweets.add(0,fromJsonArray(json.jsonArray, null).get(0));
                         adapter.notifyItemChanged(0);
                         rvt.smoothScrollToPosition(0);
@@ -254,13 +255,5 @@ public class TimelineActivity extends AppCompatActivity {
     };
 
 
-    public void onReply(View view){
-        FragmentManager fm = getSupportFragmentManager();
-        String u= ((TextView)(view.findViewById(R.id.tvusername))).getText().toString();
-        ComposeFragment compose = ComposeFragment.newInstance(u);
-        Bundle bundle = new Bundle();
-        bundle.putString("username", String.valueOf(view.findViewById(R.id.tvusername)));
-        compose.setArguments(bundle);
-        compose.show(fm, "composeFragment");
-    }
+
 }
