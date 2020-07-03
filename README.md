@@ -53,6 +53,7 @@ Future improvements:
   - But one solution would be to use status/show to get the user's id. Then, use statuses/mentions_timeline to find any in_reply_to_status_id matching the original tweet's id
 - Slight bug with the Compose Tweet API
   - Accessing the compose fragment through the action bar option and reply option worked fine: user would be prompted to tweet and upon posting it, the recycler view would update with the new post. However, when composing a reply in my details activity, the new tweet would replace the first tweet rather than bump it down.
+  - Possible oddity from having duplicates of the same call in different classes ( Local Broadcast Manager and an onActivityResult)
 
 
 ## Video Walkthrough
