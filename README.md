@@ -60,7 +60,7 @@ Future improvements:
 
 Here's a walkthrough of implemented user stories:
 
-![Demo](https://github.com/aczoo/Twitter/blob/master/demo.gif)<br /> ![Demo2](https://github.com/aczoo/Twitter/blob/master/demo%2012.23.22%20AM.gif)
+![Demo](https://github.com/aczoo/Twitter/blob/master/demo.gif) ![Demo2](https://github.com/aczoo/Twitter/blob/master/demo%2012.23.22%20AM.gif)
 
 
 ## Notes
