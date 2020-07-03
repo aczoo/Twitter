@@ -19,7 +19,6 @@ import okhttp3.Headers;
 import static android.app.Activity.RESULT_OK;
 
 public class DeleteFragment extends DialogFragment {
-    private static final int REQUEST_CODE = 20;
     TwitterClient client;
     Button delete;
 
