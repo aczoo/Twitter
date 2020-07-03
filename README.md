@@ -32,6 +32,7 @@ The following **stretch** features are implemented:
   * [x] User can **take favorite (and unfavorite) or retweet** actions on a tweet
 * [x] User can view more tweets as they scroll with infinite pagination
 * [x] Compose tweet functionality is built using modal overlay
+  * [x] Clicking outside of the fragment closes it
 * [x] User can **click a link within a tweet body** on tweet details view. The click will launch the web browser with relevant page opened.
 * [x] Replace all icon drawables and other static image assets with [vector drawables](http://guides.codepath.org/android/Drawables#vector-drawables) where appropriate.
 * [ ] User can view following / followers list through any profile they view.
@@ -42,8 +43,16 @@ The following **stretch** features are implemented:
 The following **additional** features are implemented:
 
 * [x] User can delete their tweet on the home page
+  * [x] Holding down on a tweet will prompt a dialogfragment
 * [x] User can also like and retweet another individual's tweet on their home page
-* [x] requests for extended tweet and the retweeted object
+* [x] Requests for extended tweet and the retweeted object
+* [x] Details page displays expanded time and both the like/retweet count.
+
+Future improvements:
+- In the current Twitter dev API, there is no quick way to access a list of all replies to a tweet (Other than 3rd party sources and timely recursive functions). 
+  - But one solution would be to use status/show to get the user's id. Then, use statuses/mentions_timeline to find any in_reply_to_status_id matching the original tweet's id
+- Slight bug with the Compose Tweet API
+  - Accessing the compose fragment through the action bar option and reply option worked fine: user would be prompted to tweet and upon posting it, the recycler view would update with the new post. However, when composing a reply in my details activity, the new tweet would replace the first tweet rather than bump it down.
 
 
 ## Video Walkthrough
@@ -54,7 +63,8 @@ Here's a walkthrough of implemented user stories:
 
 
 ## Notes
-I had slight trouble with reading the JSON files and determining how to extract certain values.
+- reading the JSON files and determining how to extract certain values was somewhat tedious without the JSON formatting from Flixter
+- had trouble with selectors and the different status options, ended up using an imageview and changing the source when clicked
 
 ## Open-source libraries used
 
