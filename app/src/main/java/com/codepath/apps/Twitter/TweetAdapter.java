@@ -28,7 +28,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import okhttp3.Headers;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> {
-    //private static final int REQUEST_CODE = "20";
+    private static final int REQUEST_CODE = 20;
     Context context;
     List<Tweet> tweets;
 
@@ -169,9 +169,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             });
             itemView.setOnClickListener(this);
 
-            /*itemView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public boolean onItemLongClick() {
+                public boolean onLongClick(View view) {
                     FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
                     DeleteFragment delete = DeleteFragment.newInstance(t.id);
                     Bundle bundle = new Bundle();
@@ -182,16 +182,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
                     return true;
                 }
             });
+            
         }
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-            if(requestCode==REQUEST_CODE&& resultCode==RESULT_OK){
-                tweets.remove(data.getInt("position"));
 
-            }
-            super.onActivityResult(requestCode, resultCode, data);
-        }*/
-        }
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();

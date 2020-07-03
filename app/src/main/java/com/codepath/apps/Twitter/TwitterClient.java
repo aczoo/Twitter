@@ -102,10 +102,10 @@ public class TwitterClient extends OAuthBaseClient {
 		client.get(apiURL, params, handler);
 	}
 	public void deleteTweet(long id, JsonHttpResponseHandler handler){
-		String apiURL = getApiUrl("statuses/destroy/:" +id+".json");
+		String apiURL = getApiUrl("statuses/destroy.json");
 		RequestParams params = new RequestParams();
 		params.put("id",id);
-		client.get(apiURL, params, handler);
+		client.post(apiURL, params,"", handler);
 	}
 
 

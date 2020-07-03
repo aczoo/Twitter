@@ -19,6 +19,7 @@ import okhttp3.Headers;
 import static android.app.Activity.RESULT_OK;
 
 public class DeleteFragment extends DialogFragment {
+    private static final int REQUEST_CODE = 20;
     TwitterClient client;
     Button delete;
 
@@ -33,16 +34,17 @@ public class DeleteFragment extends DialogFragment {
         frag.setArguments(args);
         return frag;
     }
-
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getDialog().setCanceledOnTouchOutside(true);
         return inflater.inflate(R.layout.fragment_delete, container);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-         client= TwitterApp.getRestClient(getActivity());
+        client= TwitterApp.getRestClient(getActivity());
         delete = view.findViewById(R.id.btndelete);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,12 +54,10 @@ public class DeleteFragment extends DialogFragment {
                     public void onSuccess(int statusCode, Headers headers, JSON json) {
                         Log.i("deleted", "onSuccess");
                         Intent intent = new Intent();
-
-                            intent.putExtra("position",getArguments().getInt("position"));
+                        intent.putExtra("position",getArguments().getInt("position"));
                         getActivity().setResult(RESULT_OK, intent);
                         getActivity().finish();
                     }
-
                     @Override
                     public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                         Log.e("delete", "onFailure");
@@ -70,4 +70,5 @@ public class DeleteFragment extends DialogFragment {
         getDialog().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
+
 }
