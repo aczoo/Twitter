@@ -50,9 +50,8 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+![Demo](https://github.com/aczoo/Twitter/blob/master/demo.gif)<br />
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 I had slight trouble with reading the JSON files and determining how to extract certain values.
